@@ -38,11 +38,11 @@ def calculate_trajectory(ball_positions):
 def analyze_trajectory(trajectory, hoop_position):
     a, b, c = trajectory
 
-    vertex_x = -b / (2 * a)
-    vertex_y = a * vertex_x**2 + b * vertex_x + c
+    vertex_x = -b / (2 * a) #aos -b/2a
+    vertex_y = a * vertex_x**2 + b * vertex_x + c #ax^2 + bx + c
 
     if vertex_y < HOOP_HEIGHT:
-        return "Increase launch angle to clear the hoop."
+        return "Arc too flat"
     
     intersection_x = (HOOP_HEIGHT - c) / a  
     if intersection_x < 0 or intersection_x > FRAME_WIDTH:
@@ -56,7 +56,6 @@ def analyze_trajectory(trajectory, hoop_position):
     
     return "Good shot trajectory!"
 
-# Main loop
 ball_positions = []  
 hoop_position = None  
 
@@ -87,5 +86,4 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Cleanup
 cv2.destroyAllWindows()
